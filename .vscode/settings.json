@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "mlx.h": "c",
+        "stdlib.h": "c",
+        "xlib.h": "c",
+        "keysym.h": "c",
+        "keysymdef.h": "c"
+    }
+}
