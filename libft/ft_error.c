@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 17:28:31 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/24 01:44:07 by ouboukou         ###   ########.fr       */
+/*   Created: 2024/07/24 02:01:11 by ouboukou          #+#    #+#             */
+/*   Updated: 2024/07/24 02:01:27 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int arg)
+#include "libft.h"
+void	ft_error(char *str)
 {
-	if (arg >= 65 && arg <= 90)
-		return (arg + 32);
-	else
-		return (arg);
+	ft_putendl_fd(str, 2);
+	exit(EXIT_SUCCESS);
 }

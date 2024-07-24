@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ouboukou@student.42.fr <ouboukou>          +#+  +:+       +#+        */
+/*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:11:41 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/23 18:25:23 by ouboukou@st      ###   ########.fr       */
+/*   Updated: 2024/07/24 02:01:45 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void				ft_lstdelone(t_list *lst, void (*del)(void *));
 long				ft_atol(const char *str);
 int					ft_isspace(int c);
 double				ft_atof(const char *str);
+void				ft_error(char *str);
 
 #endif

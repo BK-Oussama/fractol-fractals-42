@@ -6,6 +6,8 @@
         "xlib.h": "c",
         "keysym.h": "c",
         "keysymdef.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "fractol.h": "c",
+        "ctype.h": "c"
     }
 }
