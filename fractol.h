@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/24 05:33:25 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:46:27 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/keysym.h>
+# include <X11/X.h>
 
-# define height  900
-# define width  900
+# define HEIGHT  900
+# define WIDTH  900
 
 typedef struct mlx_s
 {
 	void 	*mlx_ptr;
 	void 	*win_ptr;
+	
 	void	*img;
 	void	*ptr_to_img;
-	int		*bits_per_pixel;
+	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-}	mlx_t;
+}		mlx_t;
 
 typedef struct fractals_s
 {
