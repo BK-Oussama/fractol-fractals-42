@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/25 11:46:27 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/25 22:52:44 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define HEIGHT  900
 # define WIDTH  900
 
-typedef struct mlx_s
+typedef struct s_mlx
 {
 	void 	*mlx_ptr;
 	void 	*win_ptr;
@@ -35,7 +35,14 @@ typedef struct mlx_s
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
-}		mlx_t;
+}		t_mlx;
+
+typedef struct s_point
+{
+	double x;
+	double y;
+	
+}	t_point;
 
 typedef struct fractals_s
 {

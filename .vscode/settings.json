@@ -9,6 +9,7 @@
         "libft.h": "c",
         "fractol.h": "c",
         "ctype.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "x.h": "c"
     }
 }
