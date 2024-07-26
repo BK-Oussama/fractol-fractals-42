@@ -22,7 +22,7 @@ all: $(NAME)
 
 # How to build the executable
 $(NAME): $(SRCs) $(Libft) $(MLX)
-	$(CC) $(CFLAGS) $(SRCs) $(Libft) $(MLX) -o $(NAME) -Lminilibx-linux -lmlx -lXext -lX11
+	$(CC) $(CFLAGS) $(SRCs) $(Libft) $(MLX) -o $(NAME) -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
 $(Libft):
 	make -s -C libft

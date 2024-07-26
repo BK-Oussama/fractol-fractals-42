@@ -12,10 +12,7 @@
 
 #include "fractol.h"
 
-// void draw_julia(t_mlx *fractal, t_point xyPos)
-// {
 
-// }
 
 int	main(int argc, char **argv)
 {

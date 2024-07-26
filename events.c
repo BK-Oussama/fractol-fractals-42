@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:03 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/26 16:10:49 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:14:50 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ int	keyboard_events(int keycode, t_mlx *inf)
 	if (keycode == XK_Escape)
 		clean_mlx_exit(inf);
 	else if (keycode == XK_Up)
-		draw_mandelbrot(inf);
+		printf("saa");
+		// draw_mandelbrot(inf);
 	// else if (keycode == XK_Down)
 	// else if (keycode == XK_Right)
 	// else if (keycode == XK_Left )
 	// else if (keycode == XK_KP_Add)
 	// printf("here we are!!\n");
 	else if (keycode == XK_KP_Subtract)
-		draw_mandelbrot(inf);
+		printf("saa8888888888");
+		// draw_mandelbrot(inf);
 	// printf("zzzzzzzzzzzzzzzzzzz\n");
 	// draw_circle(inf, 0xd4e2f);
 	return (0);
