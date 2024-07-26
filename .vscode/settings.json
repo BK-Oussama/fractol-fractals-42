@@ -10,6 +10,7 @@
         "fractol.h": "c",
         "ctype.h": "c",
         "math.h": "c",
-        "x.h": "c"
+        "x.h": "c",
+        "stdint.h": "c"
     }
 }

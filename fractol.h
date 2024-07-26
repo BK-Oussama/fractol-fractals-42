@@ -6,10 +6,9 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/25 22:52:44 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/26 11:55:52 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
@@ -60,6 +59,5 @@ typedef struct fractals_s
 	int		max_iterations;
 	
 }	fractals_t;
-
 
 #endif

@@ -3,52 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ouboukou@student.42.fr <ouboukou>          +#+  +:+       +#+        */
+/*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:54:51 by ouboukou@st       #+#    #+#             */
-/*   Updated: 2024/07/23 19:18:55 by ouboukou@st      ###   ########.fr       */
+/*   Updated: 2024/07/26 14:10:26 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double ft_atof(const char *str)
+static char	*space_and_sign(const char *str, int *sign)
 {
+	while (*str && ft_isspace(*str) == 0)
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			*sign = -(*sign);
+		str++;
+	}
+	return ((char *)str);
+}
 
-    double result = 0.0;
-    double fraction = 0.0;
-    int sign = 1;
-    int divisor = 1;
-    int decimal_count = 0;
+double	ft_atof(const char *str)
+{
+	long	integer;
+	double	fraction;
+	double	power;
+	int		sign;
+    char    *new_str;
 
-    while (ft_isspace(*str))
-        str++;
-
-    if (*str == '+' || *str == '-')
-    {
-        if (*str == '-')
-            sign = -1;
-        str++;
-    }
-    
-    while (*str)
-    {
-        if (ft_isdigit(*str))
-        {
-            if (decimal_count)
-            {
-                fraction = fraction * 10.0 + (*str - '0');
-                divisor = divisor * 10;
-            }
-            else
-                result = result * 10.0 + (*str - '0');
-        }
-        else if (*str == '.' && decimal_count == 0)
-            decimal_count++;
-        else
-            break; // Stop processing on non-numeric character
-    str++;
-    }
-    result = result + fraction / divisor;
-    return (result * sign);
+	integer = 0;
+	fraction = 0;
+	sign = 1;
+	power = 1;
+    new_str = space_and_sign(str, &sign);
+	while (*new_str >= '0' && *new_str <= '9')
+		integer = (integer * 10) + (*new_str++ - 48);
+	if ('.' == *new_str)
+		new_str++;
+	while (*new_str && (*new_str >= '0' && *new_str <= '9'))
+	{
+		power = power / 10;
+		fraction = fraction + (*new_str++ - 48) * power;
+	}
+	return ((integer + fraction) * sign);
 }

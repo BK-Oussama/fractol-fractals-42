@@ -1,5 +1,5 @@
 
-#gcc main.c -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+#gcc main.c -Lminilibx-linux -lmlx_Linux -lX11 -lXext libft/libft.a -lm
 
 # Define compiler
 CC = cc 

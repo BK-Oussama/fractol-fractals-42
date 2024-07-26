@@ -6,14 +6,14 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:33:51 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/25 23:19:51 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/26 14:08:14 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 // this function calculate the next iteration of the formual rule : Zn = Zn-1^2 + c
-t_point complex_sqrt(t_point z)
+t_point complex_square(t_point z)
 {
 	// the overall rule to get real part and imaginry part of a complex number:
 		// 
@@ -21,8 +21,8 @@ t_point complex_sqrt(t_point z)
 		// to get real part  			to get imaginry part
 	
 	t_point res;
-	res.x = pow(z.x, 2) - pow(z.y, 2); 	//calculate sqrt of real part
-	res.y = 2 * z.x * z.y; 				// calculate sart of imaginary part
+	res.x = pow(z.x, 2) - pow(z.y, 2); 	//calculate sqrt of real part			#Real part: (x^2 - y^2)
+	res.y = 2 * z.x * z.y; 				// calculate imaginary part				#Imaginary part: 2xy
 	return (res);
 }
 void ft_put_pixel(t_mlx *data, int x, int y, int color)
@@ -50,17 +50,20 @@ double scale(double i, double max, double a, double b)
 {
 	return (i * (b - a) / max + a);
 }
-
+void draw_julia(t_mlx *fractal, t_point xyPos)
+{
+	
+}
 void draw_mandelbrot(t_mlx *fractal)
 {
 	t_point z;
 	t_point c;
 	
 	int i = 0;
-	while (i <= WIDTH)
+	while (i < WIDTH)
 	{
 		int j = 0;
-		while(j <= HEIGHT)
+		while(j < HEIGHT)
 		{	
 			z.x = 0;
 			z.y = 0;
@@ -69,7 +72,7 @@ void draw_mandelbrot(t_mlx *fractal)
 			int	iterations = 600;
 			while (iterations)
 			{
-				z = sum_complex(complex_sqrt(z), c);
+				z = sum_complex(complex_square(z), c);
 				if (z.x * z.x + z.y * z.y > 4)
 					break ;
 				iterations--;
@@ -83,49 +86,13 @@ void draw_mandelbrot(t_mlx *fractal)
 	mlx_put_image_to_window(fractal->mlx_ptr, fractal->win_ptr, fractal->img, 0 , 0);	
 }
 
-// void draw_circle(t_mlx *data, int color)
-// {
-// 	int center_x = WIDTH / 2;
-// 	int center_y = WIDTH / 2;
-// 	int x, y;
-// 	int raduis = 150;
-// 	int circle_diameter = sqaure(raduis);
-	
-// 	x = center_x - raduis;
-// 	while (x <= center_x + raduis)
-// 	{
-// 		y = center_y - raduis;
-// 		while (y <= center_y + raduis)
-// 		{
-// 			if ((x - center_x) * (x - center_x) + (y - center_y) * (y - center_y) <= circle_diameter)
-// 				mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, color);
-// 			y++;
-// 		}
-// 		x++;
-// 	}	
-// }
 
-void color_screen(t_mlx *data, int color)
-{
-	int y = 0;
-	while (y < HEIGHT)
-	{
-		int x = 0;
-		while (x < WIDTH)
-		{
-			ft_put_pixel(data, x, y, color);
-			x++;
-		}
-		y++;
-	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0 , 0);
-}
-
-void intilize_mlx(t_mlx *mlx)
+void initialize_mlx(t_mlx *mlx)
 {
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
 		exit(EXIT_FAILURE);
+		
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, HEIGHT, WIDTH, "Fractol");
 	if (mlx->win_ptr == NULL)
 	{
@@ -133,6 +100,7 @@ void intilize_mlx(t_mlx *mlx)
 		free(mlx->mlx_ptr);	
 		exit(EXIT_FAILURE);
 	}
+	
 	mlx->img = mlx_new_image(mlx->mlx_ptr, HEIGHT, WIDTH);
 	if (mlx->img == NULL)
 	{
@@ -141,6 +109,7 @@ void intilize_mlx(t_mlx *mlx)
 		free(mlx->mlx_ptr);
 		exit(EXIT_SUCCESS);
 	}
+	
 	mlx->ptr_to_img = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endian);
 	if (mlx->ptr_to_img == NULL)
 	{
@@ -167,8 +136,7 @@ int keyboard_events(int keycode, t_mlx *inf)
 	if (keycode == XK_Escape)
 		clean_mlx_exit(inf);
 	else if (keycode == XK_Up)
-		color_screen(inf, 0xFF4897d9);
-	
+		draw_mandelbrot(inf);
 	// else if (keycode == XK_Down)
 	// else if (keycode == XK_Right)
 	// else if (keycode == XK_Left )
@@ -181,67 +149,86 @@ int keyboard_events(int keycode, t_mlx *inf)
 	return (0);
 }
 
-
-
-
-
-
-// parse_julia_args(char **argv, t_list fractal)
-// {
-// 	if ((is_valid_float(argv[2]) == 1) || (is_valid_float(argv[3]) == 1))
-// 		ft_error("Please enter Valid julia set in the range of -2 and 2");
+int is_valid_float(char *str)
+{
+	int i = 0;
+	if (!str || !*str)
+	 return (1);
 	
-// 	double x = ft_atof(argv[2]);
-// 	double y = ft_atof(argv[3]);
+	while (ft_isspace(str[i]) == 0)
+		i++;
 
-// 	if (x < 2 || x > -2 || y < 2 || y > -2)
-// 		ft_error("Please enter Valid julia set in the range of -2 and 2");
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+		
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+		
+	if (str[i] ==  '.')
+		i++;
+
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
 	
+	if (str[i] == '\0')
+		return 0;
+	else
+		return 1;	
+}
+
+void parse_julia_args(char **argv, t_mlx *fractal)
+{
+	if ((is_valid_float(argv[2]) == 1))
+		ft_error("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+	if ((is_valid_float(argv[3]) == 1))
+		ft_error("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz");
+
+	//  || (is_valid_float(argv[3]) == 1))
 	
+	t_point xyPos;
+	xyPos.x = ft_atof(argv[2]);
+	xyPos.y = ft_atof(argv[3]);
+	
+	if (xyPos.x >= -2 && xyPos.x <= 2 && xyPos.y >= -2 && xyPos.y <= 2)
+		draw_julia(fractal, xyPos);
+	else
+		ft_error("Please enter Valid julia set in the range of -2 and 2");
+}
 
-// }
+void parse_arguments(int argc, char **argv, t_mlx *fractal)
+{
 
-// int is_valid_float(char *str)
-// {
-// 	while (ft_isspace(*str))
-// 		str++;
-
-// 	if (*str == '+' || *str == '-')
-// 		str++;
-// 	if (*str >= '0' && *str <= '9')
-// 		return 0;
-// 	else 
-// 		return 1;
-// }
-
-// void parse_arguments(int argc, char **argv, t_list fractal)
-// {
-	// int j;
-	// j = 0;
-	// if (argc == 2)
-	// {
-		// while (argv[1][j])
-		// {
-			// argv[1][j] = ft_tolower(argv[1][j]);
-			// j++;
-		// }
-		// if (ft_strncmp("julia", argv[1], 5) == 0)
-			// intilize_mandelbrot();
-	// }
-	// else if (argc == 4)
-	// {
-		// while (argv[1][j])
-		// {
-			// argv[1][j] = ft_tolower(argv[1][j]);
-			// j++;
-		// }
-		// if (ft_strncmp("julia", argv[1], 5) == 0)
-			// intilize_julia(argv, );
-	// }
-	// else
-		// ft_error("Please enter valid fractal sets");
-// }
-
+	int j;
+	j = 0;
+	if (argc == 2)
+	{
+		while (argv[1][j])
+		{
+			argv[1][j] = ft_tolower(argv[1][j]);
+			j++;
+		}
+		if (ft_strncmp("mandelbrot", argv[1], 10) == 0)
+			draw_mandelbrot(fractal);
+		else
+			ft_error("Destroy conections and what has been intilzie and exit prpoerly");
+	}
+	
+	printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	if (argc == 4)
+	{
+		while (argv[1][j])
+		{
+			argv[1][j] = ft_tolower(argv[1][j]);
+			j++;
+		}
+		if (ft_strncmp("julia", argv[1], 5) == 0)
+			parse_julia_args(argv, fractal);
+		else
+			ft_error("Destroy conections and what has been intilzie and exit prpoerly");
+	}
+	else
+		ft_error("Please enter valid fractal sets");
+}
 
 int mouse_events(int button, int x, int y, t_mlx *mlx)
 {
@@ -266,14 +253,18 @@ int main(int argc, char **argv)
 	if (argc < 2)
 		ft_error("Please enter a valid fracatl set");
 	
-	// parse_arguments(argc, argv);
 	t_mlx inf;
 
-	intilize_mlx(&inf);
-	draw_mandelbrot(&inf);
-		mlx_key_hook(inf.win_ptr, keyboard_events, &inf);
-		mlx_mouse_hook(inf.win_ptr, mouse_events, &inf);
-		mlx_hook(inf.win_ptr, DestroyNotify, 0, clean_mlx_exit, &inf);
+	initialize_mlx(&inf);
+
+	parse_arguments(argc, argv, &inf);
+
+	// draw_mandelbrot(&inf);
+
+	mlx_key_hook(inf.win_ptr, keyboard_events, &inf);
+	mlx_mouse_hook(inf.win_ptr, mouse_events, &inf);
+	mlx_hook(inf.win_ptr, DestroyNotify, 0, clean_mlx_exit, &inf);
+
 	mlx_loop(inf.mlx_ptr);
 
 	return 0;
