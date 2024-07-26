@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/26 11:55:52 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:39:50 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,26 @@ typedef struct fractals_s
 	int		max_iterations;
 	
 }	fractals_t;
+
+// Parsing Functions
+int		is_valid_float(char *str);
+void	parse_julia_args(char **argv, t_mlx *fractal);
+void	parse_arguments(int argc, char **argv, t_mlx *fractal);
+
+// Events Functions
+int		keyboard_events(int keycode, t_mlx *inf);
+int		mouse_events(int button, int x, int y, t_mlx *mlx);
+
+
+// Main Functions
+
+t_point complex_square(t_point z);
+void ft_put_pixel(t_mlx *data, int x, int y, int color);
+t_point sum_complex(t_point z, t_point c);
+double scale(double i, double max, double a, double b);
+void draw_mandelbrot(t_mlx *fractal);
+void initialize_mlx(t_mlx *mlx);
+int clean_mlx_exit(t_mlx *mlx);
+
 
 #endif
