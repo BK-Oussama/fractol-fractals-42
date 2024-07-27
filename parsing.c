@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:15 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/26 18:10:45 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:38:41 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	parse_julia_args(char **argv, t_mlx *fractal)
 	if (xyPos.x >= -2 && xyPos.x <= 2 && xyPos.y >= -2 && xyPos.y <= 2)
 		draw_julia(fractal, xyPos);
 
-		// printf("just cuse we need a statment here!\n");
-	// draw_julia(fractal, xyPos);
 	else
 	{
 		fractals_guide();
@@ -71,7 +69,10 @@ void	parse_arguments(int argc, char **argv, t_mlx *fractal)
 			j++;
 		}
 		if (ft_strncmp("mandelbrot", argv[1], 10) == 0)
+		{
+			fractal->set = "mandelbrot";
 			draw_mandelbrot(fractal);
+		}
 		else
 		{
 			fractals_guide();
@@ -87,12 +88,15 @@ void	parse_arguments(int argc, char **argv, t_mlx *fractal)
 			j++;
 		}
 		if (ft_strncmp("julia", argv[1], 5) == 0)
+		{
+			fractal->set = "julia";
 			parse_julia_args(argv, fractal);
+		}
 		else
-			ft_error("Destroy conections and what has been intilzie and exit prpoerly");
+			fractals_guide();
 	}
 	else
-		ft_error("Please enter valid fractal sets");
+		fractals_guide();
 }
 
 void	fractals_guide(void)
@@ -101,9 +105,9 @@ void	fractals_guide(void)
 	ft_putstr_fd("Which fractal would you like to view?\n", 1);
 	ft_putstr_fd("\t 1 - Mandelbrot\n", 1);
 	ft_putstr_fd("\t 2 - Julia\n", 1);
-	ft_putstr_fd("\e[36mUsage example:\t./fractol <type>\n\t\t./fractol Mandelbrot\e[0m", 1);
+	ft_putstr_fd("\n\e[36mUsage example:\t./fractol <type>\n\t\t./fractol Mandelbrot\e[0m", 1);
 	ft_putstr_fd("\n\nFor Julia, you may specify starting values for the initial fractal shape.\n", 1);
 	ft_putstr_fd("Values must be between -2.0 and 2.0 and must contain a decimal point.\n", 1);
-	ft_putstr_fd("\e[36mUsage example:\t", 1);
-	ft_putstr_fd("./fractol J\n\t\t./fractol Julia 0.285 0.01\e[0m\n\n", 1);
+	ft_putstr_fd("\n\e[36mUsage example:\t", 1);
+	ft_putstr_fd("./fractol Julia\t 0.285 0.01\e[0m\n\n", 1);
 }

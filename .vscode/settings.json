@@ -11,6 +11,7 @@
         "ctype.h": "c",
         "math.h": "c",
         "x.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "unistd.h": "c"
     }
 }

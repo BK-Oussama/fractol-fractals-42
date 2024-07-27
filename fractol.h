@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/26 18:12:13 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:34:21 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 # define PUSH_SWAP_H
 
 #include "./libft/libft.h"
-# include "mlx.h"
+//  # include "mlx.h"
+ # include <mlx.h>
+
 # include <math.h> 
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/keysym.h>
 # include <X11/X.h>
 
-# define HEIGHT  900
-# define WIDTH  900
+# define HEIGHT  700
+# define WIDTH  700
+# define ITERATION 100
 
 typedef struct s_mlx
 {
@@ -34,6 +37,13 @@ typedef struct s_mlx
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
+	
+	double zoom;
+	char 	*set;
+	int iter;
+	int x;
+	int y;
+	
 }		t_mlx;
 
 typedef struct s_point

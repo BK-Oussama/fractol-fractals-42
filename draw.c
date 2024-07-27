@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:17:35 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/26 18:17:32 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:32:08 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ void	draw_mandelbrot(t_mlx *fractal)
 {
 	t_point z;
 	t_point c;
+	int k;
+	int i;
 
-	int i = 0;
+	i = 0;
+	// mlx_clear_window(fractal->mlx_ptr, fractal->win_ptr);
 	while (i < WIDTH)
 	{
 		int j = 0;
@@ -67,18 +70,20 @@ void	draw_mandelbrot(t_mlx *fractal)
 		{
 			z.x = 0;
 			z.y = 0;
-			c.x = scale(i, WIDTH, -2, 2);
-			c.y = scale(j, HEIGHT, 2, -2);
-			int iterations = 600;
-			while (iterations)
+			c.x = scale(i, WIDTH, -2, 2) * fractal->zoom;
+			c.y = scale(j, HEIGHT, 2, -2) * fractal->zoom;
+			k = 0;
+			while (k <= ITERATION)
 			{
 				z = sum_complex(complex_square(z), c);
 				if (z.x * z.x + z.y * z.y > 4)
 					break ;
-				iterations--;
+				k++;
 			}
-			if (iterations == 0)
-				ft_put_pixel(fractal, i, j, 0x6F00FF);
+			if (k >= ITERATION)
+				ft_put_pixel(fractal, i, j, 0x00008B);
+			else
+				ft_put_pixel(fractal, i, j, (0x25e073 * k));
 			j++;
 		}
 		i++;
@@ -87,43 +92,45 @@ void	draw_mandelbrot(t_mlx *fractal)
 }
 
 
+
 void draw_julia(t_mlx *fractal, t_point xyPos)
 {
     t_point z;
     t_point c;
+	int i;
+	int k;
 
-    int i = 0;
+    i = 0;
+	z.x = 0;
+	z.y = 0;
     while (i < WIDTH)
     {
         int j = 0;
         while (j < HEIGHT)
         {
-            // Map each pixel to the complex plane
             z.x = scale(i, WIDTH, -2, 2);
             z.y = scale(j, HEIGHT, 2, -2);
-            
-            // Use the given constant complex number for Julia
             c.x = xyPos.x;
             c.y = xyPos.y;
             
-            int iterations = 1000;
-            while (iterations)
+            k = 0;
+            while (k <= ITERATION)
             {
                 // Apply the Julia set formula: z = z^2 + c
                 z = sum_complex(complex_square(z), c);
 
                 // Check for divergence
-                if (z.x * z.x + z.y * z.y > 4)
+                if (z.x * z.x + z.y * z.y >= 4)
                     break;
                 
-                iterations--;
+                k++;
             }
 
             // Color the pixel based on whether it belongs to the Julia set
-            if (iterations == 0)
-                ft_put_pixel(fractal, i, j, 0x6F00FF); // Color for inside the set
+            if (k == 0)
+                ft_put_pixel(fractal, i, j, 00000); // Color for inside the set
             else
-                ft_put_pixel(fractal, i, j, 0xF17102 * (iterations * 5)); // Gradient for outside the set
+                ft_put_pixel(fractal, i, j, 0xF17102 * (k * 5)); // Gradient for outside the set
             
             j++;
         }

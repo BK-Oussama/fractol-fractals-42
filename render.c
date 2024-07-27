@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                             :+:      :+:    :+:   */
+/*   render.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 23:33:51 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/26 15:11:49 by ouboukou         ###   ########.fr       */
+/*   Created: 2024/07/26 17:00:44 by ouboukou          #+#    #+#             */
+/*   Updated: 2024/07/27 19:29:44 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <unistd.h>
 #include "fractol.h"
 
-
-
-int	main(int argc, char **argv)
+void	render_fractals(t_mlx *f)
 {
-	t_mlx	inf;
-
-	if (argc < 2)
+    if (ft_strncmp(f->set, "mandelbrot", 10) == 0)
 	{
-		fractals_guide();
-		exit (EXIT_SUCCESS);
+		t_point const_c;
+		t_point var_z;
+		draw_mandelbrot(f, &const_c, &var_z);
+		mlx_put_image_to_window(f->mlx_ptr, f->win_ptr, f->img, 0, 0);
 	}
-
-	initialize_mlx(&inf);
-	parse_arguments(argc, argv, &inf);
-	mlx_key_hook(inf.win_ptr, keyboard_events, &inf);
-	mlx_mouse_hook(inf.win_ptr, mouse_events, &inf);
-	mlx_hook(inf.win_ptr, DestroyNotify, 0, clean_mlx_exit, &inf);
-	mlx_loop(inf.mlx_ptr);
-	return (0);
+	else
+		printf("ZZZZZZZZZZZZZZZZZZZZZZZZ");
 }
