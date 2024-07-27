@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:03 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 20:33:46 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:09:13 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,23 @@ int	keyboard_events(int keycode, t_mlx *inf)
 
 int	mouse_events(int button, int x, int y, t_mlx *mlx)
 {
-	//printf("Mouse button %d clicked at (%d, %d)\n", button, x, y);
-
 	(void)x;
 	(void)y;
-	// if (button == 1) // Left-click
-	// 	draw_mandelbrot(mlx);
 	if (button == 4) // Scroll up
 	{
 		mlx->zoom = mlx->zoom * 0.9;
-		// printf("%f\n", mlx->zoom);
-		draw_mandelbrot(mlx);
+		if (ft_strncmp(mlx->set, "mandelbrot", 10) == 0)
+			draw_mandelbrot(mlx);
+		else
+			draw_julia(mlx, mlx->julia_xy);
 	}
 	else if (button == 5) // Scroll down
 	{
 		mlx->zoom = mlx->zoom / 0.9;
-		// printf("%f\n", mlx->zoom);
-		draw_mandelbrot(mlx);
+		if (ft_strncmp(mlx->set, "mandelbrot", 10) == 0)
+			draw_mandelbrot(mlx);
+		else
+			draw_julia(mlx, mlx->julia_xy);
 	}
 	return (0);
 }

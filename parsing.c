@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:15 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 20:38:41 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:07:26 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,27 @@ int	is_valid_float(char *str)
 		return (1);
 }
 
-void	parse_julia_args(char **argv, t_mlx *fractal)
+void	parse_julia_args(char **argv, t_mlx *f)
 {
-	t_point	xyPos;
 
 	if ((is_valid_float(argv[2]) == 1) || (is_valid_float(argv[3]) == 1))
 	{
 		fractals_guide();		
-		clean_mlx_exit(fractal);
+		clean_mlx_exit(f);
 	}
-	xyPos.x = ft_atof(argv[2]);
-	xyPos.y = ft_atof(argv[3]);
-	if (xyPos.x >= -2 && xyPos.x <= 2 && xyPos.y >= -2 && xyPos.y <= 2)
-		draw_julia(fractal, xyPos);
+	f->julia_xy.x = ft_atof(argv[2]);
+	f->julia_xy.y = ft_atof(argv[3]);
+	if (f->julia_xy.x >= -2 && f->julia_xy.x <= 2 && f->julia_xy.y >= -2 && f->julia_xy.y <= 2)
+		draw_julia(f, f->julia_xy);
 
 	else
 	{
 		fractals_guide();
-		clean_mlx_exit(fractal);
+		clean_mlx_exit(f);
 	}
 
 }
+
 
 void	parse_arguments(int argc, char **argv, t_mlx *fractal)
 {
@@ -98,6 +98,19 @@ void	parse_arguments(int argc, char **argv, t_mlx *fractal)
 	else
 		fractals_guide();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void	fractals_guide(void)
 {

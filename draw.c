@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:17:35 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 20:32:08 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:11:20 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ void	draw_mandelbrot(t_mlx *fractal)
 	mlx_put_image_to_window(fractal->mlx_ptr, fractal->win_ptr, fractal->img, 0, 0);
 }
 
-
-
 void draw_julia(t_mlx *fractal, t_point xyPos)
 {
     t_point z;
@@ -108,8 +106,8 @@ void draw_julia(t_mlx *fractal, t_point xyPos)
         int j = 0;
         while (j < HEIGHT)
         {
-            z.x = scale(i, WIDTH, -2, 2);
-            z.y = scale(j, HEIGHT, 2, -2);
+            z.x = scale(i, WIDTH, -2, 2) * fractal->zoom;
+            z.y = scale(j, HEIGHT, 2, -2) * fractal->zoom;
             c.x = xyPos.x;
             c.y = xyPos.y;
             

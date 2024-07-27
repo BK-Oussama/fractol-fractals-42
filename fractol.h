@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 20:34:21 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:06:01 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@
 # define WIDTH  700
 # define ITERATION 100
 
+typedef struct s_point
+{
+	double x;
+	double y;
+	
+}	t_point;
+
 typedef struct s_mlx
 {
 	void 	*mlx_ptr;
@@ -43,15 +50,11 @@ typedef struct s_mlx
 	int iter;
 	int x;
 	int y;
+	t_point julia_xy;
 	
 }		t_mlx;
 
-typedef struct s_point
-{
-	double x;
-	double y;
-	
-}	t_point;
+
 
 typedef struct fractals_s
 {
