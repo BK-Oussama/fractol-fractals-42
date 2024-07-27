@@ -6,7 +6,7 @@
 CC = cc 
 
 # Define CFLAGS (compiler flags)
-CFLAGS =  -Wall -Wextra -Werror -I. -Ilibft  #-g -fsanitize=address
+CFLAGS =  -Wall -Wextra -Werror -O3 -I. -Ilibft   #-g -fsanitize=address
 
 # Source code files
 SRCs =  fractol.c events.c parsing.c draw.c utilis.c

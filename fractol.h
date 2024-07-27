@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 21:06:01 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 00:02:39 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define HEIGHT  700
 # define WIDTH  700
-# define ITERATION 100
+# define ITERATION 128
 
 typedef struct s_point
 {
@@ -50,6 +50,9 @@ typedef struct s_mlx
 	int iter;
 	int x;
 	int y;
+	
+	double move_x;
+	double move_y;
 	t_point julia_xy;
 	
 }		t_mlx;
@@ -86,7 +89,7 @@ int		mouse_events(int button, int x, int y, t_mlx *mlx);
 // Main Functions
 
 t_point complex_square(t_point z);
-void ft_put_pixel(t_mlx *data, int x, int y, int color);
+void	ft_put_pixel(t_mlx *data, int color);
 t_point sum_complex(t_point z, t_point c);
 double scale(double i, double max, double a, double b);
 void draw_mandelbrot(t_mlx *fractal);

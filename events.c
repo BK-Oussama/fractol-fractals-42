@@ -6,30 +6,42 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:03 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 21:09:13 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 23:36:17 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	keyboard_events(int keycode, t_mlx *inf)
+int	keyboard_events(int keycode, t_mlx *f)
 {
 	printf("%d\n", keycode);
 	if (keycode == XK_Escape)
-		clean_mlx_exit(inf);
+		clean_mlx_exit(f);
+		
 	else if (keycode == XK_Up)
-		printf("saa");
-		// draw_mandelbrot(inf);
-	// else if (keycode == XK_Down)
-	// else if (keycode == XK_Right)
-	// else if (keycode == XK_Left )
-	// else if (keycode == XK_KP_Add)
-	// printf("here we are!!\n");
+		f->move_y = f->move_y + 0.2 * f->zoom;
+
+	else if (keycode == XK_Down)
+		f->move_y = f->move_y - 0.2 * f->zoom;
+
+	else if (keycode == XK_Right)
+		f->move_x = f->move_x + 0.2 * f->zoom;
+
+	else if (keycode == XK_Left)
+		f->move_x = f->move_x - 0.2 * f->zoom;
+		
+	else if (keycode == XK_KP_Add)
+		f->zoom = f->zoom * 0.9;
+		
 	else if (keycode == XK_KP_Subtract)
-		printf("saa8888888888");
-		// draw_mandelbrot(inf);
-	// printf("zzzzzzzzzzzzzzzzzzz\n");
-	// draw_circle(inf, 0xd4e2f);
+		f->zoom = f->zoom / 0.9;
+
+	if (ft_strncmp(f->set, "mandelbrot", 10) == 0)
+			draw_mandelbrot(f);
+			
+	else
+			draw_julia(f, f->julia_xy);
+			
 	return (0);
 }
 

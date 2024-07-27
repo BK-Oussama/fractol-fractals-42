@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:17:35 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 21:11:20 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 00:04:51 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,14 @@ t_point	complex_square(t_point z)
 	return (res);
 }
 
-void	ft_put_pixel(t_mlx *data, int x, int y, int color)
+void	ft_put_pixel(t_mlx *data, int color)
 {
 	char	*pxl;
 
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-	{
-		pxl = data->ptr_to_img + (y * data->size_line + x
-				* (data->bits_per_pixel / 8));
+		pxl = data->ptr_to_img + (data->y * data->size_line + data->x * (data->bits_per_pixel / 8));
 		*(unsigned int *)pxl = color;
-	}
+			
+	
 }
 
 // this function will calculate the sum of z  part that we alredy calcute using the complex sqrt with c and return (the results);
@@ -49,9 +47,9 @@ t_point	sum_complex(t_point z, t_point c)
 	res.y = z.y + c.y;
 	return (res);
 }
-double	scale(double i, double max, double a, double b)
+double	scale(double pxl_cord, double width, double plan_min, double plan_max)
 {
-	return (i * (b - a) / max + a);
+	return (pxl_cord * (plan_max - plan_min) / width + plan_min);
 }
 
 void	draw_mandelbrot(t_mlx *fractal)
@@ -59,19 +57,17 @@ void	draw_mandelbrot(t_mlx *fractal)
 	t_point z;
 	t_point c;
 	int k;
-	int i;
-
-	i = 0;
-	// mlx_clear_window(fractal->mlx_ptr, fractal->win_ptr);
-	while (i < WIDTH)
+	
+	fractal->x = 0;
+	while (fractal->x < WIDTH)
 	{
-		int j = 0;
-		while (j < HEIGHT)
+		fractal->y = 0;
+		while (fractal->y < HEIGHT)
 		{
 			z.x = 0;
 			z.y = 0;
-			c.x = scale(i, WIDTH, -2, 2) * fractal->zoom;
-			c.y = scale(j, HEIGHT, 2, -2) * fractal->zoom;
+			c.x = scale(fractal->x, WIDTH, -2, 2) * fractal->zoom + fractal->move_x;
+			c.y = scale(fractal->y, HEIGHT, 2, -2) * fractal->zoom + fractal->move_y;
 			k = 0;
 			while (k <= ITERATION)
 			{
@@ -81,58 +77,55 @@ void	draw_mandelbrot(t_mlx *fractal)
 				k++;
 			}
 			if (k >= ITERATION)
-				ft_put_pixel(fractal, i, j, 0x00008B);
+				ft_put_pixel(fractal, (0x201E43));
 			else
-				ft_put_pixel(fractal, i, j, (0x25e073 * k));
-			j++;
+				ft_put_pixel(fractal,  0x25e073 * k / 100);
+			fractal->y++;
 		}
-		i++;
+		fractal->x++;
 	}
 	mlx_put_image_to_window(fractal->mlx_ptr, fractal->win_ptr, fractal->img, 0, 0);
 }
 
-void draw_julia(t_mlx *fractal, t_point xyPos)
+void draw_julia(t_mlx *f, t_point xyPos)
 {
     t_point z;
     t_point c;
-	int i;
 	int k;
 
-    i = 0;
+	f->x = 0;
 	z.x = 0;
 	z.y = 0;
-    while (i < WIDTH)
+    while (f->x < WIDTH)
     {
-        int j = 0;
-        while (j < HEIGHT)
+        f->y = 0;
+        while (f->y < HEIGHT)
         {
-            z.x = scale(i, WIDTH, -2, 2) * fractal->zoom;
-            z.y = scale(j, HEIGHT, 2, -2) * fractal->zoom;
+            z.x = scale(f->x, WIDTH, -2, 2) * f->zoom + f->move_x;
+            z.y = scale(f->y, HEIGHT, 2, -2) * f->zoom + f->move_y;
+
+
+
             c.x = xyPos.x;
             c.y = xyPos.y;
-            
             k = 0;
             while (k <= ITERATION)
             {
                 // Apply the Julia set formula: z = z^2 + c
                 z = sum_complex(complex_square(z), c);
-
                 // Check for divergence
                 if (z.x * z.x + z.y * z.y >= 4)
                     break;
-                
                 k++;
             }
-
             // Color the pixel based on whether it belongs to the Julia set
             if (k == 0)
-                ft_put_pixel(fractal, i, j, 00000); // Color for inside the set
+                ft_put_pixel(f, 00000); // Color for inside the set
             else
-                ft_put_pixel(fractal, i, j, 0xF17102 * (k * 5)); // Gradient for outside the set
-            
-            j++;
+                ft_put_pixel(f, 0xF17102 * (k * 5)); // Gradient for outside the set
+            f->y++;
         }
-        i++;
+        f->x++;
     }
-    mlx_put_image_to_window(fractal->mlx_ptr, fractal->win_ptr, fractal->img, 0, 0);
+    mlx_put_image_to_window(f->mlx_ptr, f->win_ptr, f->img, 0, 0);
 }

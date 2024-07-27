@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:25:30 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 19:07:06 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/27 23:26:53 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	initialize_mlx(t_mlx *mlx)
 {
 	mlx->zoom = 1.0;
 	mlx->x = 0.0;
+	mlx->move_x = 0.0;
+	mlx->move_y = 0.0;
+	
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
 		exit(EXIT_FAILURE);
