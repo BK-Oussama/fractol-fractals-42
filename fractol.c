@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		exit (EXIT_SUCCESS);
 	}
 
-	initialize_mlx(&inf);
+	// initialize_mlx(&inf);
 	parse_arguments(argc, argv, &inf);
 	mlx_key_hook(inf.win_ptr, keyboard_events, &inf);
 	mlx_mouse_hook(inf.win_ptr, mouse_events, &inf);

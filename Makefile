@@ -9,7 +9,7 @@ CC = cc
 CFLAGS =  -Wall -Wextra -Werror -O3 -I. -Ilibft   #-g -fsanitize=address
 
 # Source code files
-SRCs =  fractol.c events.c parsing.c draw.c utilis.c
+SRCs =  fractol.c events.c parsing.c draw.c utilis.c render_utilis.c
 Libft = libft/libft.a
 MLX =  minilibx-linux/libmlx_Linux.a
 

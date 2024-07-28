@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:25:30 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 23:26:53 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 02:18:05 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,35 @@
 
 int	clean_mlx_exit(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	mlx_destroy_display(mlx->mlx_ptr);
-	free(mlx->mlx_ptr);
+	if (mlx->img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->img);
+	if (mlx->win_ptr)
+		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	if (mlx->mlx_ptr)
+	{
+		mlx_destroy_display(mlx->mlx_ptr);
+		free(mlx->mlx_ptr);
+	}
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 void	initialize_mlx(t_mlx *mlx)
 {
 	mlx->zoom = 1.0;
-	mlx->x = 0.0;
 	mlx->move_x = 0.0;
 	mlx->move_y = 0.0;
 	
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
-		exit(EXIT_FAILURE);
-
+		clean_mlx_exit(mlx);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, HEIGHT, WIDTH, "Fractol");
 	if (mlx->win_ptr == NULL)
-	{
-		mlx_destroy_display(mlx->mlx_ptr);
-		free(mlx->mlx_ptr);
-		exit(EXIT_FAILURE);
-	}
-
+		clean_mlx_exit(mlx);
 	mlx->img = mlx_new_image(mlx->mlx_ptr, HEIGHT, WIDTH);
 	if (mlx->img == NULL)
-	{
-		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-		mlx_destroy_display(mlx->mlx_ptr);
-		free(mlx->mlx_ptr);
-		exit(EXIT_SUCCESS);
-	}
-
+		clean_mlx_exit(mlx);
 	mlx->ptr_to_img = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
 			&mlx->size_line, &mlx->endian);
 	if (mlx->ptr_to_img == NULL)
-	{
-		mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-		mlx_destroy_display(mlx->mlx_ptr);
-		free(mlx->mlx_ptr);
-		exit(EXIT_SUCCESS);
-	}
+		clean_mlx_exit(mlx);
 }

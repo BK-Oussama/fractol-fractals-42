@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 00:02:39 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 02:14:41 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_mlx
 	double zoom;
 	char 	*set;
 	int iter;
+	
 	int x;
 	int y;
 	
@@ -58,23 +59,6 @@ typedef struct s_mlx
 }		t_mlx;
 
 
-
-typedef struct fractals_s
-{
-	int		x;
-	int		y;
-	double	zx;
-	double	zy;
-	double	cx;
-	double	cy;
-	int		color;
-	double	offset_x;
-	double	offset_y;
-	double	zoom;
-	char	*name;
-	int		max_iterations;
-	
-}	fractals_t;
 
 // Parsing Functions
 int		is_valid_float(char *str);

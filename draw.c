@@ -6,51 +6,12 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:17:35 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 00:04:51 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 02:56:09 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-// this function calculate the next iteration of the formual rule : Zn = Zn-1^2
-t_point	complex_square(t_point z)
-{
-	t_point	res;
-
-	// the overall rule to get real part and imaginry part of a complex number:
-	//
-	// x^2 - y^2 			+				i (2xy);
-	// to get real part  			to get imaginry part
-	res.x = pow(z.x, 2) - pow(z.y, 2);
-					//calculate sqrt of real part			#Real part: (x^2 - y^2)
-	res.y = 2 * z.x * z.y;            
-						// calculate imaginary part				#Imaginary part: 2xy
-	return (res);
-}
-
-void	ft_put_pixel(t_mlx *data, int color)
-{
-	char	*pxl;
-
-		pxl = data->ptr_to_img + (data->y * data->size_line + data->x * (data->bits_per_pixel / 8));
-		*(unsigned int *)pxl = color;
-			
-	
-}
-
-// this function will calculate the sum of z  part that we alredy calcute using the complex sqrt with c and return (the results);
-t_point	sum_complex(t_point z, t_point c)
-{
-	t_point	res;
-
-	res.x = z.x + c.x;
-	res.y = z.y + c.y;
-	return (res);
-}
-double	scale(double pxl_cord, double width, double plan_min, double plan_max)
-{
-	return (pxl_cord * (plan_max - plan_min) / width + plan_min);
-}
+#include <stdio.h>
 
 void	draw_mandelbrot(t_mlx *fractal)
 {
@@ -76,10 +37,10 @@ void	draw_mandelbrot(t_mlx *fractal)
 					break ;
 				k++;
 			}
-			if (k >= ITERATION)
-				ft_put_pixel(fractal, (0x201E43));
+			if (k == ITERATION)
+				ft_put_pixel(fractal, 0x100626);
 			else
-				ft_put_pixel(fractal,  0x25e073 * k / 100);
+				ft_put_pixel(fractal,  0x03346E * (k * 5));
 			fractal->y++;
 		}
 		fractal->x++;
@@ -103,26 +64,20 @@ void draw_julia(t_mlx *f, t_point xyPos)
         {
             z.x = scale(f->x, WIDTH, -2, 2) * f->zoom + f->move_x;
             z.y = scale(f->y, HEIGHT, 2, -2) * f->zoom + f->move_y;
-
-
-
             c.x = xyPos.x;
             c.y = xyPos.y;
             k = 0;
             while (k <= ITERATION)
             {
-                // Apply the Julia set formula: z = z^2 + c
                 z = sum_complex(complex_square(z), c);
-                // Check for divergence
                 if (z.x * z.x + z.y * z.y >= 4)
                     break;
                 k++;
             }
-            // Color the pixel based on whether it belongs to the Julia set
             if (k == 0)
-                ft_put_pixel(f, 00000); // Color for inside the set
-            else
-                ft_put_pixel(f, 0xF17102 * (k * 5)); // Gradient for outside the set
+                ft_put_pixel(f, 00000);
+			else
+                ft_put_pixel(f, 0x03346E * (k * 5));
             f->y++;
         }
         f->x++;

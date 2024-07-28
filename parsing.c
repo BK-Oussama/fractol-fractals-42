@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:15 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/27 21:07:26 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 02:51:53 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	parse_julia_args(char **argv, t_mlx *f)
 	f->julia_xy.x = ft_atof(argv[2]);
 	f->julia_xy.y = ft_atof(argv[3]);
 	if (f->julia_xy.x >= -2 && f->julia_xy.x <= 2 && f->julia_xy.y >= -2 && f->julia_xy.y <= 2)
+	{
+		initialize_mlx(f);
 		draw_julia(f, f->julia_xy);
+	}
 
 	else
 	{
@@ -71,6 +74,7 @@ void	parse_arguments(int argc, char **argv, t_mlx *fractal)
 		if (ft_strncmp("mandelbrot", argv[1], 10) == 0)
 		{
 			fractal->set = "mandelbrot";
+			initialize_mlx(fractal);
 			draw_mandelbrot(fractal);
 		}
 		else
@@ -96,7 +100,10 @@ void	parse_arguments(int argc, char **argv, t_mlx *fractal)
 			fractals_guide();
 	}
 	else
+	{
 		fractals_guide();
+		clean_mlx_exit(fractal);
+	}
 }
 
 
