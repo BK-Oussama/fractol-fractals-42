@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:46:06 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 05:11:43 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:38:18 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define HEIGHT 700
 # define WIDTH 700
-# define ITERATION 128
+# define ITERATION 256
 
 typedef struct s_point
 {
@@ -72,6 +72,7 @@ t_point		sum_complex(t_point z, t_point c);
 
 double		scale(double i, double max, double a, double b);
 void		ft_put_pixel(t_mlx *data, int color);
+int			get_color(int k, int max_iterations);
 
 void		draw_mandelbrot(t_mlx *fractal);
 int			calculate_mandelbrot_iterations(t_point c);

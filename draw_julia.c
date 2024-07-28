@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:10:37 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 05:30:02 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:40:09 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_julia_pixel(t_mlx *f, t_point xyPos)
 	if (k == 0)
 		ft_put_pixel(f, 0x000000);
 	else
-		ft_put_pixel(f, 0x03346E * (k * 5));
+		ft_put_pixel(f, get_color(k, ITERATION));
 }
 
 void	draw_julia(t_mlx *f, t_point xyPos)

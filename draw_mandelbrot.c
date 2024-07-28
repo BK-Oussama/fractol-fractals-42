@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:17:35 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 05:07:49 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:38:47 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_mandelbrot_pixel(t_mlx *fractal)
 	if (k == ITERATION)
 		ft_put_pixel(fractal, 0x100626);
 	else
-		ft_put_pixel(fractal, 0x03346E * (k * 5));
+		ft_put_pixel(fractal, get_color(k, ITERATION));
 }
 
 void	draw_mandelbrot(t_mlx *fractal)
