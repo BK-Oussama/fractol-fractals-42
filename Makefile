@@ -9,9 +9,9 @@ CC = cc
 CFLAGS =  -Wall -Wextra -Werror -O3 -I. -Ilibft   #-g -fsanitize=address
 
 # Source code files
-SRCs =  fractol.c events.c parsing.c draw.c utilis.c render_utilis.c
+SRCs =  fractol.c events.c parsing.c draw_julia.c draw_mandelbrot.c utilis.c render_utilis.c
 Libft = libft/libft.a
-MLX =  minilibx-linux/libmlx_Linux.a
+# MLX =  minilibx-linux/libmlx_Linux.a
 
 # Executable name
 NAME = fractol
@@ -30,6 +30,7 @@ $(Libft):
 
 $(MLX):
 	make -s -C  minilibx-linux
+	
 # Target to clean up object files
 clean:
 	rm -f $(NAME)

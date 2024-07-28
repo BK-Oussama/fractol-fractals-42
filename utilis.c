@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 09:25:30 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 02:18:05 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 05:29:27 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int	clean_mlx_exit(t_mlx *mlx)
 	exit(EXIT_SUCCESS);
 	return (0);
 }
+
 void	initialize_mlx(t_mlx *mlx)
 {
 	mlx->zoom = 1.0;
 	mlx->move_x = 0.0;
 	mlx->move_y = 0.0;
-	
 	mlx->mlx_ptr = mlx_init();
 	if (mlx->mlx_ptr == NULL)
 		clean_mlx_exit(mlx);

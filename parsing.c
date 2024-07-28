@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:15 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 02:51:53 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 05:26:56 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,99 +35,79 @@ int	is_valid_float(char *str)
 		return (1);
 }
 
-void	parse_julia_args(char **argv, t_mlx *f)
+int	parse_julia_args(char **argv, t_mlx *f)
 {
-
 	if ((is_valid_float(argv[2]) == 1) || (is_valid_float(argv[3]) == 1))
-	{
-		fractals_guide();		
-		clean_mlx_exit(f);
-	}
+		fractals_guide();
 	f->julia_xy.x = ft_atof(argv[2]);
 	f->julia_xy.y = ft_atof(argv[3]);
-	if (f->julia_xy.x >= -2 && f->julia_xy.x <= 2 && f->julia_xy.y >= -2 && f->julia_xy.y <= 2)
+	if (f->julia_xy.x >= -2 && f->julia_xy.x <= 2 && f->julia_xy.y >= -2
+		&& f->julia_xy.y <= 2)
 	{
-		initialize_mlx(f);
-		draw_julia(f, f->julia_xy);
+		return (0);
 	}
-
 	else
-	{
 		fractals_guide();
-		clean_mlx_exit(f);
-	}
-
+	return (1);
 }
 
-
-void	parse_arguments(int argc, char **argv, t_mlx *fractal)
+static void	to_lowercase(char *str)
 {
-	int j;
+	int	j;
+
+	if (*str == '\0' || !str)
+		fractals_guide();
 	j = 0;
+	while (str[j])
+	{
+		str[j] = ft_tolower(str[j]);
+		j++;
+	}
+}
+
+int	parse_arguments(int argc, char **argv, t_mlx *fractal)
+{
+	to_lowercase(argv[1]);
 	if (argc == 2)
 	{
-		while (argv[1][j])
-		{
-			argv[1][j] = ft_tolower(argv[1][j]);
-			j++;
-		}
 		if (ft_strncmp("mandelbrot", argv[1], 10) == 0)
 		{
 			fractal->set = "mandelbrot";
-			initialize_mlx(fractal);
-			draw_mandelbrot(fractal);
+			return (0);
 		}
 		else
-		{
 			fractals_guide();
-			clean_mlx_exit(fractal);
-		}
 	}
-
 	else if (argc == 4)
 	{
-		while (argv[1][j])
-		{
-			argv[1][j] = ft_tolower(argv[1][j]);
-			j++;
-		}
 		if (ft_strncmp("julia", argv[1], 5) == 0)
 		{
 			fractal->set = "julia";
-			parse_julia_args(argv, fractal);
+			if (parse_julia_args(argv, fractal) == 0)
+				return (0);
 		}
 		else
 			fractals_guide();
 	}
 	else
-	{
 		fractals_guide();
-		clean_mlx_exit(fractal);
-	}
+	return (1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void	fractals_guide(void)
 {
-	ft_putstr_fd("\n===========================  Available Fractals  ===========================\n", 1);
+	ft_putstr_fd("\n===========================  Available Fractals  ==", 1);
+	ft_putstr_fd("=========================\n\n", 1);
 	ft_putstr_fd("Which fractal would you like to view?\n", 1);
 	ft_putstr_fd("\t 1 - Mandelbrot\n", 1);
 	ft_putstr_fd("\t 2 - Julia\n", 1);
-	ft_putstr_fd("\n\e[36mUsage example:\t./fractol <type>\n\t\t./fractol Mandelbrot\e[0m", 1);
-	ft_putstr_fd("\n\nFor Julia, you may specify starting values for the initial fractal shape.\n", 1);
-	ft_putstr_fd("Values must be between -2.0 and 2.0 and must contain a decimal point.\n", 1);
+	ft_putstr_fd("\n\e[36mUsage example:\t./fractol <type>\n\t\t./fractol", 1);
+	ft_putstr_fd("Mandelbrot\e[0m", 1);
+	ft_putstr_fd("\n\nFor Julia, you may specify starting values for the", 1);
+	ft_putstr_fd("initial fractal shape.\n", 1);
+	ft_putstr_fd("Values must be between -2.0 and 2.0 and must ", 1);
+	ft_putstr_fd("contain a decimal point.\n", 1);
 	ft_putstr_fd("\n\e[36mUsage example:\t", 1);
 	ft_putstr_fd("./fractol Julia\t 0.285 0.01\e[0m\n\n", 1);
+	exit(EXIT_FAILURE);
 }

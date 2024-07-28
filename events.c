@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:03 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 01:13:01 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 05:08:20 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	keyboard_events(int keycode, t_mlx *f)
 {
 	if (keycode == XK_Escape)
-		clean_mlx_exit(f);	
+		clean_mlx_exit(f);
 	else if (keycode == XK_Up)
 		f->move_y = f->move_y + 0.2 * f->zoom;
 	else if (keycode == XK_Down)
@@ -28,13 +28,10 @@ int	keyboard_events(int keycode, t_mlx *f)
 		f->zoom = f->zoom * 0.9;
 	else if (keycode == XK_KP_Subtract)
 		f->zoom = f->zoom / 0.9;
-
-	// else if (keycode == XK_backslash)
-		// ITERATION = ITERATION + 3;
 	if (ft_strncmp(f->set, "mandelbrot", 10) == 0)
-			draw_mandelbrot(f);
+		draw_mandelbrot(f);
 	else
-			draw_julia(f, f->julia_xy);
+		draw_julia(f, f->julia_xy);
 	return (0);
 }
 

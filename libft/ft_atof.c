@@ -31,13 +31,13 @@ double	ft_atof(const char *str)
 	double	fraction;
 	double	power;
 	int		sign;
-    char    *new_str;
+	char	*new_str;
 
 	integer = 0;
 	fraction = 0;
 	sign = 1;
 	power = 1;
-    new_str = space_and_sign(str, &sign);
+	new_str = space_and_sign(str, &sign);
 	while (*new_str >= '0' && *new_str <= '9')
 		integer = (integer * 10) + (*new_str++ - 48);
 	if ('.' == *new_str)
