@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 12:17:35 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 18:38:47 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:57:56 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	calculate_mandelbrot_iterations(t_point c)
 	z.x = 0;
 	z.y = 0;
 	k = 0;
-	while (k <= ITERATION)
+	while (k < ITERATION)
 	{
 		z = sum_complex(complex_square(z), c);
 		if (z.x * z.x + z.y * z.y > 4)
@@ -39,7 +39,7 @@ void	draw_mandelbrot_pixel(t_mlx *fractal)
 	c.y = scale(fractal->y, HEIGHT, 2, -2) * fractal->zoom + fractal->move_y;
 	k = calculate_mandelbrot_iterations(c);
 	if (k == ITERATION)
-		ft_put_pixel(fractal, 0x100626);
+		ft_put_pixel(fractal, 0);
 	else
 		ft_put_pixel(fractal, get_color(k, ITERATION));
 }

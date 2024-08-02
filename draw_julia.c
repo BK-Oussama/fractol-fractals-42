@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:10:37 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 18:40:09 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/08/02 22:39:31 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	calculate_julia_iterations(t_point z, t_point c)
 	int	k;
 
 	k = 0;
-	while (k <= ITERATION)
+	while (k < ITERATION)
 	{
 		z = sum_complex(complex_square(z), c);
 		if (z.x * z.x + z.y * z.y >= 4)
@@ -33,7 +33,7 @@ void	draw_julia_pixel(t_mlx *f, t_point xyPos)
 	t_point	c;
 	int		k;
 
-	z.x = scale(f->x, WIDTH, -2, 2) * f->zoom + f->move_x;
+	z.x = scale(f->x, WIDTH, 2, -2) * f->zoom + f->move_x;
 	z.y = scale(f->y, HEIGHT, 2, -2) * f->zoom + f->move_y;
 	c.x = xyPos.x;
 	c.y = xyPos.y;
