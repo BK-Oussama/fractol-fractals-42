@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:10:37 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/08/02 22:39:31 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:41:26 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_julia_pixel(t_mlx *f, t_point xyPos)
 	int		k;
 
 	z.x = scale(f->x, WIDTH, 2, -2) * f->zoom + f->move_x;
-	z.y = scale(f->y, HEIGHT, 2, -2) * f->zoom + f->move_y;
+	z.y = scale(f->y, HEIGHT, -2, 2) * f->zoom + f->move_y;
 	c.x = xyPos.x;
 	c.y = xyPos.y;
 	k = calculate_julia_iterations(z, c);

@@ -6,7 +6,7 @@
 /*   By: ouboukou <ouboukou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:06:15 by ouboukou          #+#    #+#             */
-/*   Updated: 2024/07/28 05:26:56 by ouboukou         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:38:33 by ouboukou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	is_valid_float(char *str)
 		i++;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
+	if (str[i] == '\0')
+		return (1);
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
 	if (str[i] == '.')
